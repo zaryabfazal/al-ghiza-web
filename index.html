@@ -1,0 +1,963 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AL-GHIZA | Pure Nutrition</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* ===== CSS RESET & GLOBAL STYLES ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --color-dark: #0c0c0c;
+            --color-brown: #3d2c1f;
+            --color-wheat: #d4b483;
+            --color-gold: #b8860b;
+            --color-light: #f5f1eb;
+            --color-white: #ffffff;
+            --color-gray: #8a8a8a;
+            --transition: all 0.4s ease;
+            --shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            --border-radius: 8px;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--color-dark);
+            color: var(--color-light);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Cormorant Garamond', serif;
+            font-weight: 600;
+            line-height: 1.2;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        section {
+            padding: 100px 0;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 60px;
+            position: relative;
+        }
+
+        .section-title h2 {
+            font-size: 3.2rem;
+            color: var(--color-wheat);
+            display: inline-block;
+        }
+
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            width: 80px;
+            height: 2px;
+            background: var(--color-gold);
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .btn {
+            display: inline-block;
+            background-color: var(--color-wheat);
+            color: var(--color-dark);
+            padding: 14px 32px;
+            border-radius: var(--border-radius);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border: none;
+            cursor: pointer;
+            transition: var(--transition);
+            font-size: 0.9rem;
+        }
+
+        .btn:hover {
+            background-color: var(--color-gold);
+            transform: translateY(-3px);
+            box-shadow: var(--shadow);
+        }
+
+        /* ===== HEADER / NAVBAR ===== */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            padding: 20px 0;
+            transition: var(--transition);
+            background-color: rgba(12, 12, 12, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        header.scrolled {
+            padding: 15px 0;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background-color: var(--color-wheat);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--color-dark);
+            font-weight: 700;
+            font-size: 1.2rem;
+        }
+
+        .logo-text {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--color-wheat);
+        }
+
+        .logo-text span {
+            color: var(--color-gold);
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 40px;
+        }
+
+        .nav-link {
+            font-weight: 500;
+            font-size: 1rem;
+            position: relative;
+            padding: 5px 0;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            background-color: var(--color-gold);
+            bottom: 0;
+            left: 0;
+            transition: var(--transition);
+        }
+
+        .nav-link:hover::after,
+        .nav-link.active::after {
+            width: 100%;
+        }
+
+        .mobile-toggle {
+            display: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--color-wheat);
+        }
+
+        /* ===== HERO SECTION ===== */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(rgba(12, 12, 12, 0.85), rgba(61, 44, 31, 0.8)), url('https://images.unsplash.com/photo-1543353074-2b73c5b5d7d4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80');
+            background-size: cover;
+            background-position: center;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero h1 {
+            font-size: 4.5rem;
+            margin-bottom: 20px;
+            color: var(--color-white);
+            line-height: 1.1;
+        }
+
+        .hero h1 span {
+            color: var(--color-wheat);
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 40px;
+            max-width: 600px;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        /* ===== ABOUT SECTION ===== */
+        .about {
+            background-color: var(--color-dark);
+            position: relative;
+        }
+
+        .about::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 1px;
+            background: linear-gradient(to right, transparent, var(--color-gold), transparent);
+        }
+
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .about-text h3 {
+            font-size: 2.5rem;
+            margin-bottom: 25px;
+            color: var(--color-wheat);
+        }
+
+        .about-text p {
+            margin-bottom: 20px;
+            color: var(--color-gray);
+        }
+
+        .about-image {
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            position: relative;
+        }
+
+        .about-image::before {
+            content: '';
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            right: -20px;
+            bottom: -20px;
+            border: 2px solid var(--color-gold);
+            border-radius: var(--border-radius);
+            z-index: -1;
+        }
+
+        .about-image img {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+
+        .about-image:hover img {
+            transform: scale(1.05);
+        }
+
+        /* ===== PRODUCTS SECTION ===== */
+        .products {
+            background-color: #0f0f0f;
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 30px;
+        }
+
+        .product-card {
+            background-color: var(--color-brown);
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            transition: var(--transition);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow);
+        }
+
+        .product-image {
+            height: 200px;
+            overflow: hidden;
+        }
+
+        .product-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+
+        .product-card:hover .product-image img {
+            transform: scale(1.1);
+        }
+
+        .product-info {
+            padding: 25px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .product-info h3 {
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+            color: var(--color-wheat);
+        }
+
+        .product-info p {
+            color: var(--color-gray);
+            margin-bottom: 20px;
+            flex-grow: 1;
+        }
+
+        .product-price {
+            font-size: 1.3rem;
+            color: var(--color-gold);
+            font-weight: 600;
+            margin-top: auto;
+        }
+
+        /* ===== FEATURES SECTION ===== */
+        .features {
+            background-color: var(--color-dark);
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+
+        .feature-card {
+            text-align: center;
+            padding: 40px 25px;
+            background-color: rgba(61, 44, 31, 0.3);
+            border-radius: var(--border-radius);
+            transition: var(--transition);
+            border: 1px solid rgba(212, 180, 131, 0.1);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            background-color: rgba(61, 44, 31, 0.5);
+            border-color: var(--color-gold);
+        }
+
+        .feature-icon {
+            width: 70px;
+            height: 70px;
+            margin: 0 auto 25px;
+            background-color: rgba(212, 180, 131, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--color-wheat);
+            font-size: 1.8rem;
+        }
+
+        .feature-card h3 {
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+            color: var(--color-wheat);
+        }
+
+        .feature-card p {
+            color: var(--color-gray);
+        }
+
+        /* ===== CONTACT SECTION ===== */
+        .contact {
+            background-color: #0f0f0f;
+            position: relative;
+        }
+
+        .contact::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 1px;
+            background: linear-gradient(to right, transparent, var(--color-gold), transparent);
+        }
+
+        .contact-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+        }
+
+        .contact-form .form-group {
+            margin-bottom: 25px;
+        }
+
+        .contact-form input,
+        .contact-form textarea {
+            width: 100%;
+            padding: 16px 20px;
+            background-color: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(212, 180, 131, 0.2);
+            border-radius: var(--border-radius);
+            color: var(--color-light);
+            font-family: 'Inter', sans-serif;
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+
+        .contact-form input:focus,
+        .contact-form textarea:focus {
+            outline: none;
+            border-color: var(--color-gold);
+            box-shadow: 0 0 0 2px rgba(184, 134, 11, 0.2);
+        }
+
+        .contact-form textarea {
+            min-height: 150px;
+            resize: vertical;
+        }
+
+        .contact-info {
+            padding-left: 20px;
+        }
+
+        .contact-info h3 {
+            font-size: 2.2rem;
+            margin-bottom: 25px;
+            color: var(--color-wheat);
+        }
+
+        .contact-details {
+            margin-bottom: 40px;
+        }
+
+        .contact-detail {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .contact-detail i {
+            width: 40px;
+            height: 40px;
+            background-color: rgba(212, 180, 131, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--color-wheat);
+            margin-right: 15px;
+        }
+
+        /* ===== FOOTER ===== */
+        footer {
+            background-color: var(--color-brown);
+            padding: 60px 0 30px;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 50px;
+        }
+
+        .footer-logo {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: var(--color-wheat);
+            margin-bottom: 20px;
+        }
+
+        .footer-logo span {
+            color: var(--color-gold);
+        }
+
+        .footer-text {
+            color: var(--color-gray);
+            max-width: 400px;
+        }
+
+        .footer-links h4 {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            color: var(--color-wheat);
+        }
+
+        .footer-links ul li {
+            margin-bottom: 12px;
+        }
+
+        .footer-links ul li a {
+            color: var(--color-gray);
+            transition: var(--transition);
+        }
+
+        .footer-links ul li a:hover {
+            color: var(--color-wheat);
+            padding-left: 5px;
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--color-gray);
+            font-size: 0.9rem;
+        }
+
+        /* ===== RESPONSIVE STYLES ===== */
+        @media (max-width: 992px) {
+            .hero h1 {
+                font-size: 3.8rem;
+            }
+            
+            .about-content,
+            .contact-content {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+            
+            .about-image {
+                order: -1;
+            }
+            
+            .contact-info {
+                padding-left: 0;
+            }
+            
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .mobile-toggle {
+                display: block;
+            }
+            
+            .nav-menu {
+                position: fixed;
+                top: 80px;
+                left: -100%;
+                width: 100%;
+                flex-direction: column;
+                background-color: var(--color-dark);
+                padding: 40px 20px;
+                gap: 30px;
+                transition: var(--transition);
+                box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+                z-index: 999;
+            }
+            
+            .nav-menu.active {
+                left: 0;
+            }
+            
+            .hero h1 {
+                font-size: 3rem;
+            }
+            
+            .section-title h2 {
+                font-size: 2.5rem;
+            }
+            
+            section {
+                padding: 80px 0;
+            }
+            
+            .features-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 576px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .section-title h2 {
+                font-size: 2.2rem;
+            }
+            
+            .about-text h3 {
+                font-size: 2rem;
+            }
+            
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .products-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .btn {
+                padding: 12px 28px;
+            }
+        }
+
+        /* ===== ANIMATIONS ===== */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .fade-in {
+            animation: fadeIn 0.8s ease forwards;
+        }
+
+        .delay-1 { animation-delay: 0.2s; }
+        .delay-2 { animation-delay: 0.4s; }
+        .delay-3 { animation-delay: 0.6s; }
+        .delay-4 { animation-delay: 0.8s; }
+    </style>
+</head>
+<body>
+    <!-- ===== HEADER / NAVBAR ===== -->
+    <header id="header">
+        <div class="container">
+            <nav class="navbar">
+                <div class="logo">
+                    <!-- <div class="logo-icon">A</div> -->
+                    <div class="logo-text">AL-<span>GHIZA</span></div>
+                </div>
+                
+                <div class="mobile-toggle" id="mobile-toggle">
+                    <i class="fas fa-bars"></i>
+                </div>
+                
+                <ul class="nav-menu" id="nav-menu">
+                    <li><a href="#home" class="nav-link active">Home</a></li>
+                    <li><a href="#about" class="nav-link">About</a></li>
+                    <li><a href="#products" class="nav-link">Products</a></li>
+                    <li><a href="#features" class="nav-link">Why Us</a></li>
+                    <li><a href="#contact" class="nav-link">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- ===== HERO SECTION ===== -->
+    <section id="home" class="hero">
+        <div class="container">
+            <div class="hero-content fade-in">
+                <h1>Pure Nutrition for a <span>Healthier Life</span></h1>
+                <p>At AL-GHIZA, we bring you the finest selection of organic grains and pure foods, sourced directly from nature's best. Experience nutrition in its purest form.</p>
+                <a href="#products" class="btn">Explore Our Products</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== ABOUT SECTION ===== -->
+    <section id="about" class="about">
+        <div class="container">
+            <div class="section-title fade-in">
+                <h2>About AL-GHIZA</h2>
+            </div>
+            
+            <div class="about-content">
+                <div class="about-text fade-in delay-1">
+                    <h3>Our Story of Purity & Quality</h3>
+                    <p>Founded with a vision to provide pure, unadulterated nutrition, AL-GHIZA sources the finest grains from trusted farmers who practice sustainable agriculture.</p>
+                    <p>We believe that what you consume directly impacts your health and wellbeing. That's why we are committed to delivering products that are free from harmful chemicals, preservatives, and artificial additives.</p>
+                    <p>Every grain that bears the AL-GHIZA name undergoes rigorous quality checks to ensure it meets our high standards for purity, taste, and nutritional value.</p>
+                </div>
+                
+                <div class="about-image fade-in delay-2">
+                    <img src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="AL-GHIZA grains and products">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== PRODUCTS SECTION ===== -->
+    <section id="products" class="products">
+        <div class="container">
+            <div class="section-title fade-in">
+                <h2>Our Products</h2>
+            </div>
+            
+            <div class="products-grid">
+                <!-- Product Card 1 -->
+                <div class="product-card fade-in">
+                    <div class="product-image">
+                        <img src="/assets/Premium Wheat.jpeg" alt="Premium Wheat">
+                    </div>
+                    <div class="product-info">
+                        <h3>Premium Wheat</h3>
+                        <p>Our organic wheat is stone-ground to preserve its natural nutrients and fiber. Perfect for wholesome bread and baked goods.</p>
+                        <div class="product-price">$8.99 / kg</div>
+                    </div>
+                </div>
+                
+                <!-- Product Card 2 -->
+                <div class="product-card fade-in delay-1">
+                    <div class="product-image">
+                        <img src="/assets/Stone-ground Flour.jpeg" alt="Stone-ground Flour">
+                    </div>
+                    <div class="product-info">
+                        <h3>Stone-ground Flour</h3>
+                        <p>Finely milled from our premium wheat, this flour retains all the natural bran and germ for maximum nutrition.</p>
+                        <div class="product-price">$6.99 / kg</div>
+                    </div>
+                </div>
+                
+                <!-- Product Card 3 -->
+                <div class="product-card fade-in delay-2">
+                    <div class="product-image">
+                        <img src="/assets/Basmati Rice.jpeg" alt="Basmati Rice">
+                    </div>
+                    <div class="product-info">
+                        <h3>Basmati Rice</h3>
+                        <p>Long-grain aromatic rice with a delicate flavor and fluffy texture. Grown in the fertile plains with pure water sources.</p>
+                        <div class="product-price">$12.99 / kg</div>
+                    </div>
+                </div>
+                
+                <!-- Product Card 4 -->
+                <div class="product-card fade-in delay-3">
+                    <div class="product-image">
+                        <img src="/assets/Mixed Grains.jpeg" alt="Mixed Grains">
+                    </div>
+                    <div class="product-info">
+                        <h3>Mixed Grains</h3>
+                        <p>A nutritious blend of quinoa, millet, barley, and oats. Perfect for a balanced diet and diverse culinary uses.</p>
+                        <div class="product-price">$14.99 / kg</div>
+                    </div>
+                </div>
+                
+                <!-- Product Card 5 -->
+                <div class="product-card fade-in delay-4">
+                    <div class="product-image">
+                        <img src="/assets/Organic Foods.jpeg" alt="Organic Foods">
+                    </div>
+                    <div class="product-info">
+                        <h3>Organic Foods</h3>
+                        <p>A carefully curated selection of organic pulses, lentils, and legumes. Certified organic and packed with protein.</p>
+                        <div class="product-price">$9.99 / kg</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== FEATURES SECTION ===== -->
+    <section id="features" class="features">
+        <div class="container">
+            <div class="section-title fade-in">
+                <h2>Why Choose AL-GHIZA</h2>
+            </div>
+            
+            <div class="features-grid">
+                <!-- Feature 1 -->
+                <div class="feature-card fade-in">
+                    <div class="feature-icon">
+                        <i class="fas fa-seedling"></i>
+                    </div>
+                    <h3>100% Organic</h3>
+                    <p>All our products are certified organic, free from pesticides, chemicals, and GMOs.</p>
+                </div>
+                
+                <!-- Feature 2 -->
+                <div class="feature-card fade-in delay-1">
+                    <div class="feature-icon">
+                        <i class="fas fa-award"></i>
+                    </div>
+                    <h3>Premium Quality</h3>
+                    <p>Rigorous quality control ensures only the finest grains reach your table.</p>
+                </div>
+                
+                <!-- Feature 3 -->
+                <div class="feature-card fade-in delay-2">
+                    <div class="feature-icon">
+                        <i class="fas fa-truck"></i>
+                    </div>
+                    <h3>Direct from Farms</h3>
+                    <p>We source directly from trusted farmers, eliminating middlemen for better prices.</p>
+                </div>
+                
+                <!-- Feature 4 -->
+                <div class="feature-card fade-in delay-3">
+                    <div class="feature-icon">
+                        <i class="fas fa-heart"></i>
+                    </div>
+                    <h3>Health First</h3>
+                    <p>Our focus is on providing nutrition that supports your health and wellbeing.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== CONTACT SECTION ===== -->
+    <section id="contact" class="contact">
+        <div class="container">
+            <div class="section-title fade-in">
+                <h2>Contact Us</h2>
+            </div>
+            
+            <div class="contact-content">
+                <div class="contact-form fade-in delay-1">
+                    <form id="contactForm">
+                        <div class="form-group">
+                            <input type="text" placeholder="Your Name" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="email" placeholder="Your Email" required>
+                        </div>
+                        <div class="form-group">
+                            <textarea placeholder="Your Message" required></textarea>
+                        </div>
+                        <button type="submit" class="btn">Send Message</button>
+                    </form>
+                </div>
+                
+                <div class="contact-info fade-in delay-2">
+                    <h3>Get in Touch</h3>
+                    <p>Have questions about our products or want to place a bulk order? Reach out to us and we'll get back to you within 24 hours.</p>
+                    
+                    <div class="contact-details">
+                        <div class="contact-detail">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <div>
+                                <h4>Our Location</h4>
+                                <p>123 Nutrition Street, Farm District</p>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-detail">
+                            <i class="fas fa-phone"></i>
+                            <div>
+                                <h4>Phone Number</h4>
+                                <p>+1 (555) 123-4567</p>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-detail">
+                            <i class="fas fa-envelope"></i>
+                            <div>
+                                <h4>Email Address</h4>
+                                <p>info@al-ghiza.com</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== FOOTER ===== -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-about">
+                    <div class="footer-logo">AL-<span>GHIZA</span></div>
+                    <p class="footer-text">Providing pure, organic nutrition since 2010. Our commitment to quality and sustainability ensures you receive the best nature has to offer.</p>
+                </div>
+                
+                <div class="footer-links">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#about">About Us</a></li>
+                        <li><a href="#products">Products</a></li>
+                        <li><a href="#features">Why Choose Us</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>&copy; 2023 AL-GHIZA - Pure Nutrition. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ===== PURE CSS INTERACTIVITY ===== -->
+    <style>
+        /* Toggle mobile menu with CSS only */
+        #mobile-toggle:focus ~ .nav-menu,
+        #mobile-toggle:focus-within ~ .nav-menu,
+        .nav-menu:focus-within {
+            left: 0;
+        }
+        
+        /* Highlight active nav link on scroll */
+        :target {
+            scroll-margin-top: 100px;
+        }
+        
+        /* Form submission effect */
+        #contactForm:focus-within button {
+            background-color: var(--color-gold);
+        }
+        
+        /* Sticky header effect */
+        @media (min-width: 769px) {
+            .nav-menu:hover {
+                left: 0;
+            }
+        }
+    </style>
+
+</body>
+</html>
